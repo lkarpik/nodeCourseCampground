@@ -29,7 +29,7 @@ app.use(flash());
 
 app.set("view engine", "ejs");
 // db connextion
-mongoose.connect('mongodb://localhost:27017/yelp_camp', {
+mongoose.connect('mongodb+srv://lkarpik:Lakis23@sandbox-0erkh.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useFindAndModify: false
 });
@@ -73,7 +73,7 @@ time.setHours(time.getHours() + 2);
 
 // SERVER
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.IP || "0.0.0.0"
+const HOST = process.env.IP || "0.0.0.0";
 app.listen(process.env.PORT, process.env.IP, function () {
     console.log('Started YeplpCamp app at ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
 });
