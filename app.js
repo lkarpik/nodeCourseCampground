@@ -1,15 +1,15 @@
-const   express         = require("express"),
-        app             = express(),
-        mongoose        = require("mongoose"),
-        passport        = require("passport"),
-        flash           = require("connect-flash"),
-        LocalStrategy   = require("passport-local"),
-        Campground      = require("./models/campground"),
-        Comment         = require("./models/comment"),
-        seedDB          = require("./seeds"),
-        User            = require("./models/user"),
-        method          = require("method-override");
-        
+const express = require("express"),
+    app = express(),
+    mongoose = require("mongoose"),
+    passport = require("passport"),
+    flash = require("connect-flash"),
+    LocalStrategy = require("passport-local"),
+    Campground = require("./models/campground"),
+    Comment = require("./models/comment"),
+    seedDB = require("./seeds"),
+    User = require("./models/user"),
+    method = require("method-override");
+
 
 // Seed data 
 // seedDB();
@@ -27,7 +27,10 @@ app.use(flash());
 
 app.set("view engine", "ejs");
 // db connextion
-mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true, useFindAndModify: false});
+mongoose.connect('mongodb://localhost:27017/yelp_camp', {
+    useNewUrlParser: true,
+    useFindAndModify: false
+});
 
 // PASSPORT CONF
 app.use(require("express-session")({
@@ -43,7 +46,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // ROUTES RES VARIABLES 
-app.use((req, res, next) =>{
+app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     res.locals.time = time;
     res.locals.error = req.flash("error");
@@ -51,7 +54,7 @@ app.use((req, res, next) =>{
     res.locals.info = req.flash("info");
     // console.log(res.locals);
     next();
-    
+
 });
 
 app.use(indexRoutes);
@@ -60,10 +63,12 @@ app.use("/campgrounds/:id/comments", commentRoutes);
 
 
 const time = new Date;
-time.setHours(time.getHours()+2);
+time.setHours(time.getHours() + 2);
 
 
 // SERVER
-app.listen(process.env.PORT, process.env.IP, function (){
-    console.log('Started YeplpCamp app at ' + time.getHours() +":"+ time.getMinutes() +":" + time.getSeconds());
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.IP || "0.0.0.0"
+app.listen(process.env.PORT, process.env.IP, function () {
+    console.log('Started YeplpCamp app at ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
 });
