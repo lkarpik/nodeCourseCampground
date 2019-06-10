@@ -29,7 +29,8 @@ app.use(flash());
 
 app.set("view engine", "ejs");
 // db connextion
-mongoose.connect('mongodb+srv://lkarpik:Lakis23@sandbox-0erkh.mongodb.net/test?retryWrites=true&w=majority', {
+const database = process.env.DATABASEURL || 'mongodb+srv://lkarpik:Lakis23@sandbox-0erkh.mongodb.net/test?retryWrites=true&w=majority';
+mongoose.connect(database, {
     useNewUrlParser: true,
     useFindAndModify: false
 });
@@ -73,7 +74,7 @@ time.setHours(time.getHours() + 2);
 
 // SERVER
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.IP || "0.0.0.0";
-app.listen(process.env.PORT, process.env.IP, function () {
-    console.log('Started YeplpCamp app at ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds());
+const HOST = process.env.IP || "localhost";
+app.listen(PORT, HOST, function () {
+    console.log('Started YeplpCamp app at ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + " at: " + HOST + ":" + PORT);
 });
