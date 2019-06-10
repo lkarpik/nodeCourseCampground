@@ -8,7 +8,9 @@ const express = require("express"),
     Comment = require("./models/comment"),
     seedDB = require("./seeds"),
     User = require("./models/user"),
-    method = require("method-override");
+    method = require("method-override"),
+    session = require('express-session'),
+    MongoStore = require('connect-mongo')(session);
 
 
 // Seed data 
@@ -33,8 +35,11 @@ mongoose.connect('mongodb://localhost:27017/yelp_camp', {
 });
 
 // PASSPORT CONF
-app.use(require("express-session")({
+app.use(session({
     secret: "This is great day!",
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection
+    }),
     resave: false,
     saveUninitialized: false
 }));

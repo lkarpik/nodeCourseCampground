@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^2.0.3",
     "ejs": "^2.6.1",
     "express": "^4.17.1",
     "express-session": "^1.16.1",
