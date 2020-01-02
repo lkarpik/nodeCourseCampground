@@ -21,11 +21,13 @@ const indexRoutes = require("./routes/index");
 
 
 
+
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(method("_method"));
 app.use(flash());
+
 
 app.set("view engine", "ejs");
 // db connextion
@@ -51,6 +53,8 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
+
 // ROUTES RES VARIABLES 
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
@@ -74,7 +78,7 @@ time.setHours(time.getHours() + 2);
 
 // SERVER
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.IP || "0.0.0.0";
+const HOST = process.env.IP || "localhost";
 app.listen(PORT, HOST, function () {
     console.log('Started YeplpCamp app at ' + time.getHours() + ":" + time.getMinutes() + ":" + time.getSeconds() + " at: " + HOST + ":" + PORT);
 });
