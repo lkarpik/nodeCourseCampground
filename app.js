@@ -14,6 +14,7 @@ const express = require("express"),
 
 
 // Seed data 
+const config = require('./config')
 // seedDB();
 const commentRoutes = require("./routes/comments");
 const campgroundRoutes = require("./routes/campgrounds");
@@ -31,7 +32,8 @@ app.use(flash());
 
 app.set("view engine", "ejs");
 // db connextion
-let database = process.env.DATABASEURL || 'mongodb+srv://lkarpik:Lakis23@sandbox-0erkh.mongodb.net/test?retryWrites=true&w=majority';
+let database = process.env.DATABASEURL || config.DATABASEURL;
+
 mongoose.connect(database, {
     useNewUrlParser: true,
     useFindAndModify: false
